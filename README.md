@@ -1,95 +1,45 @@
-🧠 Brain Tumor Detection Using YOLOv10 🚀
-This project is an advanced implementation of brain tumor detection from MRI scans using the YOLOv10 object detection algorithm. It leverages the power of deep learning, computer vision, and Roboflow-integrated datasets to accurately localize and identify brain tumors in medical images.
+# Brain Tumor Classification using MRI Images (CNN)
 
-📌 Project Overview
-Brain tumor detection is a critical task in the medical field. Timely and accurate diagnosis can greatly enhance the chances of effective treatment. This project automates that process using a cutting-edge object detection model—YOLOv10, the latest version in the YOLO family, known for its speed, efficiency, and real-time detection capabilities.
+![Brain Tumor MRI](https://img.shields.io/badge/Domain-Medical%20Image%20Classification-blue) ![Python](https://img.shields.io/badge/Python-3.7%2B-blue) ![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange) ![Accuracy](https://img.shields.io/badge/Validation%20Accuracy-93.2%25-success)
 
-⚙️ Technologies Used
-Python
+A Convolutional Neural Network (CNN) model built from scratch to classify brain MRI scans into four categories:
 
-YOLOv10 (You Only Look Once Version 10)
+- **Glioma Tumor**
+- **Meningioma Tumor**
+- **No Tumor**
+- **Pituitary Tumor**
 
-PyTorch
+---
 
-Ultralytics API
+### Dataset
+- **Source**: [Brain Tumor Classification (MRI)](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri) on Kaggle
+- **Total Images**: ~3264 (Training + Testing combined)
+- **Classes**: 4
+- **Image Size**: Resized to `150x150` pixels
 
-Google Colab
+---
 
-Roboflow
+### Model Performance (After 20 Epochs)
 
-Gradio (for creating an interactive UI)
+| Metric              | Value      |
+|---------------------|------------|
+| Training Accuracy   | **95.84%** |
+| Validation Accuracy | **93.20%** |
+| Training Loss       | 0.1314     |
+| Validation Loss     | 0.4591     |
 
-Matplotlib & OpenCV (for visualization)
+![Training & Validation Accuracy](accuracy_plot.png)  
+![Training & Validation Loss](loss_plot.png)
 
-🗃 Dataset
-The dataset used was obtained from Roboflow, a platform that provides high-quality datasets tailored for deep learning. The specific dataset contains labeled brain MRI images categorized by the presence or absence of tumors. The annotations follow the YOLO format and were downloaded using the Roboflow Python API.
+---
 
-Classes: Tumor (single-class object detection)
+### Model Architecture
 
-Format: YOLOv8-compatible
+Custom CNN built using TensorFlow/Keras:
 
-Size: Includes training, validation, and test images
-
-🧠 Model: YOLOv10
-YOLOv10 is the latest innovation from the YOLO series, optimized for:
-
-Real-time object detection
-
-Low-latency deployment
-
-High accuracy with small model sizes
-
-We used the yolov10n.pt (nano version) as the base model for transfer learning. This makes the project lightweight and deployable on edge devices.
-
-🔧 Workflow
-Data Preparation:
-
-Dataset imported using Roboflow
-
-YOLO format applied
-
-Model Training:
-
-Training performed for 25–50 epochs
-
-Evaluation metrics plotted (loss, precision, recall, mAP)
-
-Prediction & Visualization:
-
-Model used to predict tumors in unseen validation images
-
-Results saved and visualized using matplotlib
-
-Gradio App:
-
-A user-friendly web interface created with Gradio
-
-Users can upload MRI images and get real-time predictions
-
-Annotated results shown instantly in the browser
-
-📊 Results
-The trained model showed impressive localization of tumors
-
-Inference was fast and reliable even on Google Colab’s free tier
-
-The Gradio app ensures accessibility for non-technical users
-
-🌐 Future Improvements
-Use larger YOLOv10 variants (yolov10s, yolov10m) for better accuracy
-
-Integrate Flask/Django backend for real-world web deployment
-
-Convert the model to ONNX/TFLite for mobile and embedded use
-
-Extend the dataset to multi-class tumor classification (e.g., meningioma, glioma)
-
-📽 Demo
-The project includes:
-
-Real-time detection notebook
-
-Visual results for multiple images
-
-Interactive Gradio demo for hands-on testing
-
+```text
+Conv2D(32) → Conv2D(64) → MaxPool → Dropout(0.3)
+→ Conv2D(64) ×2 → MaxPool → Dropout(0.3)
+→ Conv2D(128) ×3 → MaxPool → Dropout(0.3)
+→ Conv2D(128) → Conv2D(256) → MaxPool → Dropout(0.3)
+→ Flatten → Dense(512) ×2 → Dropout(0.3) → Dense(4, softmax)
