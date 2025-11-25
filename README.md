@@ -28,8 +28,8 @@ A Convolutional Neural Network (CNN) model built from scratch to classify brain 
 | Training Loss       | 0.1314     |
 | Validation Loss     | 0.4591     |
 
-![Training & Validation Accuracy](accuracy_plot.png)  
-![Training & Validation Loss](loss_plot.png)
+![Training & Validation Accuracy](Accuracy plot.png)  
+![Training & Validation Loss](loss plot.png)
 
 ---
 
